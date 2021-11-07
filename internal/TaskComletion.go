@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"os/signal"
@@ -25,27 +26,29 @@ func TaskCompletion(wg *sync.WaitGroup, i uint) {
 					repTask.IdQueue--
 				}
 
-				log.Printf("worker %v starts processing", tasks.Id)
+				log.Printf("task %v starts processing", tasks.Id)
 				tasks.StartTime = time.Now().Format(time.Stamp)
 				tasks.ExecStatus = Queued
 
+				ArithmProg := tasks.N1 + (float64(tasks.N)-1.0)*tasks.D
+				fmt.Printf("\nАрифметическая прогрессия по таску: %v \n", ArithmProg)
+
 				for i := 0; i < tasks.N; i++ {
-					time.Sleep(time.Millisecond * time.Duration(tasks.D*100))
+					time.Sleep(time.Millisecond * time.Duration(tasks.I*100))
 					tasks.N1 += tasks.D
-					tasks.I++
+					tasks.CurIteration ++
 				}
 
-				tasks.I = 0
 				tasks.EndTime = time.Now().Format(time.Stamp)
 				tasks.ExecStatus = Completed
 
-				log.Printf("worker %v finished", tasks.Id)
+				log.Printf("task %v finished", tasks.Id)
 
 				wg.Add(1)
 				go func(tasks *Task) {
 					time.AfterFunc(time.Millisecond*time.Duration(tasks.TTL*1000), func() {
 						DeleteTask(tasks)
-						log.Printf("worker %v deleted", tasks.Id)
+						log.Printf("task %v deleted", tasks.Id)
 						wg.Done()
 					})
 				}(tasks)

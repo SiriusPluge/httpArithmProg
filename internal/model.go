@@ -4,7 +4,7 @@ type Task struct {
 	Id            int     `json:"id"`
 	IdQueue       int     `json:"id_queue"`       // Number in the queue (integer)
 	ExecStatus    string  `json:"exec_status"`    // Status: In progress/Queued/Completed
-	N             int     `json:"num_elem"`       // the number of elements (integer)
+	N             int     `json:"n"`       // the number of elements (integer)
 	D             float64 `json:"d"`              // the delta between the elements of the sequence (real)
 	N1            float64 `json:"n_1"`            // the starting value (real)
 	I             float64 `json:"i"`              // the interval in seconds between iterations (real)

@@ -24,7 +24,7 @@ func main() {
 	}
 
 	go func() {
-		wg.Wait() // if Ctrl+C we wait till all goroutines re done
+		wg.Wait()
 		log.Println("exiting successfully")
 		os.Exit(0)
 	}()

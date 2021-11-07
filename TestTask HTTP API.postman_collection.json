@@ -1,0 +1,56 @@
+{
+	"info": {
+		"_postman_id": "0f293957-c379-45d1-82ad-ebb0fa61d84e",
+		"name": "TestTask HTTP API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add a Task",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"n\": 5,\n    \"d\": 5.0,\n    \"n_1\": 5.0,\n    \"i\": 5.0,\n    \"TTL\": 60.0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/putTask",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"putTask"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Tasks List and Status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/getList",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"getList"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
