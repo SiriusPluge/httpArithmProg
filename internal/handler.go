@@ -2,15 +2,14 @@ package internal
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"time"
 )
 
 const (
-	Progress = "Progress"
-	Queued = "Queued"
+	Progress  = "Progress"
+	Queued    = "Queued"
 	Completed = "Comleted"
 )
 
@@ -31,11 +30,10 @@ func PutTask(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	tasks.StatementTime = time.Now().Format(time.RFC822)
+	tasks.StatementTime = time.Now().Format(time.Stamp)
 	tasks.ExecStatus = Progress
 
 	StartTuskId++
-	fmt.Println(StartTuskId)
 	tasks.Id = StartTuskId
 	log.Printf("task %v added", tasks.Id)
 
@@ -57,28 +55,12 @@ func PutTask(w http.ResponseWriter, req *http.Request) {
 			}(&tasks)
 		}
 	}
-	//Поставить задачу в очередь. Параметры:
-	//n - количество элементов (целочисленное)
-	//d - дельта между элементами последовательности (вещественное)
-	//n1 - Стартовое значение (вещественное)
-	//I - интервал в секундах между итерациями (вещественное)
-	//TTL - время хранения результата в секундах (вещественное)
 }
 
 func GetListAndStatus(w http.ResponseWriter, req *http.Request) {
 
 	log.Printf("handling get a sorted list and the statuses at %s\n", req.URL.Path)
 
-	//Получить отсортированный список задач и статусы выполнения этих задач. Поля результата для каждой задачи:
-	//Номер в очереди (целочисленное)
-	//Статус: В процессе/В очереди/Завершена
-	//n
-	//d
-	//n1
-	//I
-	//TTL
-	//Текущая итерация
-	//Время постановки задачи
-	//Время старта задачи
-	//Время окончания задачи (в случае если задача завершена)
+	sortRepoTask()
+	json.NewEncoder(w).Encode(ReposTask)
 }
